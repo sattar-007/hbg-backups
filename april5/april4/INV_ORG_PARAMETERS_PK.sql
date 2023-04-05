@@ -1,0 +1,7 @@
+--------------------------------------------------------
+--  DDL for Index INV_ORG_PARAMETERS_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "HBG_INTEGRATION"."INV_ORG_PARAMETERS_PK" ON "HBG_INTEGRATION"."XXHBG_INV_ORG_PARAMETERS_SYNC" ("ORGANIZATION_ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "HBG_INTEGRATION_TS_DATA" ;
