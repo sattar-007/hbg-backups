@@ -1,0 +1,19 @@
+--------------------------------------------------------
+--  DDL for Trigger XXHBG_DEFAULT_DISTRIBUTION_CHANNEL_TRG
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "HBG_INTEGRATION"."XXHBG_DEFAULT_DISTRIBUTION_CHANNEL_TRG" BEFORE
+    INSERT ON "XXHBG_DEFAULT_DISTRIBUTION_CHANNEL_TBL"
+    FOR EACH ROW
+BEGIN
+    IF :new.DF_DISTRIBUTION_ID IS NULL THEN
+        SELECT
+           xxhbg_Default_Distribution_Channel_SEQ.NEXTVAL
+        INTO :new.DF_DISTRIBUTION_ID
+        FROM
+            sys.dual;
+
+    END IF;
+END;
+/
+ALTER TRIGGER "HBG_INTEGRATION"."XXHBG_DEFAULT_DISTRIBUTION_CHANNEL_TRG" ENABLE;
