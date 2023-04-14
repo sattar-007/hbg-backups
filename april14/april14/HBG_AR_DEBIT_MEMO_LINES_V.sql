@@ -1,0 +1,38 @@
+--------------------------------------------------------
+--  DDL for View HBG_AR_DEBIT_MEMO_LINES_V
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HBG_INTEGRATION"."HBG_AR_DEBIT_MEMO_LINES_V" ("BATCH_ID", "OIC_INTEGRATION_ID", "SEQUENCE", "ORGANIZATION_ID", "LINE_ID", "PAYMENT_DATE", "RECEIPT_NUMBER", "AMOUNT", "CURRENCY", "SITE_USE_ID", "CUST_ACCOUNT_ID") AS 
+  SELECT DISTINCT 
+           HAPS.BATCH_ID
+         , HAPS.OIC_INTEGRATION_ID
+         , HAPS.SEQUENCE
+         , HOU.ORGANIZATION_ID
+         , HAPL.LINE_ID
+         , HAPL.PAYMENT_DATE
+         , HAPL.RECEIPT_NUMBER
+         , (HAPL.AMOUNT * -1) AMOUNT
+         , HAPL.CURRENCY
+         , (SELECT HCSU.SITE_USE_ID
+              FROM HZ_CUST_ACCT_SITES_ALL HCSA
+                 , HZ_CUST_SITE_USES_ALL HCSU
+             WHERE HCA.CUST_ACCOUNT_ID    = HCSA.CUST_ACCOUNT_ID
+               AND HCSA.CUST_ACCT_SITE_ID = HCSU.CUST_ACCT_SITE_ID 
+               AND HCSU.SITE_USE_CODE     ='BILL_TO' 
+               AND HCSU.PRIMARY_FLAG      ='Y'
+               AND HCSU.STATUS            ='A'
+               FETCH FIRST 1 ROWS ONLY) SITE_USE_ID
+         , HCA.CUST_ACCOUNT_ID
+     FROM HBG_AR_PAYMENTS_LINES HAPL
+        , HBG_AR_PAYMENTS_SCHEDULE HAPS
+        , HR_OPERATING_UNITS HOU 
+        , HZ_CUST_ACCOUNTS HCA
+     WHERE HOU.NAME               = HAPL.BUSINESS_UNIT 
+       AND HAPS.LINE_ID           = HAPL.LINE_ID 
+       AND HAPS.BATCH_ID          = HAPL.BATCH_ID 
+       AND HAPL.RETURN_STATUS     = 'PROCESSING'
+       AND HAPL.PAYMENT_TYPE      = 'Standard'
+       AND HAPL.PROCESS_TYPE      = 'DEBIT MEMO IMPORT'
+       AND HAPL.ACCOUNT_NUMBER    = HCA.ACCOUNT_NUMBER (+)
+       AND HCA.STATUS         (+) = 'A'
+;

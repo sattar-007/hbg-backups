@@ -1,0 +1,7 @@
+--------------------------------------------------------
+--  DDL for Index HBG_INV_LOT_NUMBERS_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "HBG_INTEGRATION"."HBG_INV_LOT_NUMBERS_PK" ON "HBG_INTEGRATION"."INV_LOT_NUMBERS" ("INVENTORY_ITEM_ID", "ORGANIZATION_ID", "LOT_NUMBER") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "HBG_INTEGRATION_TS_DATA" ;
