@@ -1,0 +1,7 @@
+--------------------------------------------------------
+--  DDL for Index HBG_STERLING_DETAIL_DIST_STG_IDX_1
+--------------------------------------------------------
+
+  CREATE INDEX "HBG_INTEGRATION"."HBG_STERLING_DETAIL_DIST_STG_IDX_1" ON "HBG_INTEGRATION"."HBG_STERLING_DETAIL_DIST_STG" ("GIS_ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "HBG_INTEGRATION_TS_DATA" ;

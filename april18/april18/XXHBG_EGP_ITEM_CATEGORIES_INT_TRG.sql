@@ -1,0 +1,15 @@
+--------------------------------------------------------
+--  DDL for Trigger XXHBG_EGP_ITEM_CATEGORIES_INT_TRG
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "HBG_INTEGRATION"."XXHBG_EGP_ITEM_CATEGORIES_INT_TRG" 
+  before insert on XXHBG_EGP_ITEM_CATEGORIES_INTERFACE 
+  for each ROW
+  
+  BEGIN 
+  SELECT HBG_LIFE_PLANNER_ID_S.NEXTVAL 
+  INTO :new.INTERFACE_STAGE_ID
+  from dual ;
+  END;
+/
+ALTER TRIGGER "HBG_INTEGRATION"."XXHBG_EGP_ITEM_CATEGORIES_INT_TRG" ENABLE;

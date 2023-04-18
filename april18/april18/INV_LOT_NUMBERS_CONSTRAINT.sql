@@ -1,0 +1,7 @@
+--------------------------------------------------------
+--  Constraints for Table INV_LOT_NUMBERS
+--------------------------------------------------------
+
+  ALTER TABLE "HBG_INTEGRATION"."INV_LOT_NUMBERS" ADD CONSTRAINT "HBG_INV_LOT_NUMBERS_PK" PRIMARY KEY ("INVENTORY_ITEM_ID", "ORGANIZATION_ID", "LOT_NUMBER")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "HBG_INTEGRATION_TS_DATA"  ENABLE;
